@@ -45,7 +45,7 @@ let users = [
    {
      title: 'No Country For Old Men',
      year: '2007',
-     description:'sStory of three main characters who stumble upon a large sum of money in the desert.',
+     description:'Story of three main characters who stumble upon a large sum of money in the desert.',
      director: {
       directorName: 'Joel Cohen, Ethan Cohen',
       birth: 'November 29, 1954; September 21, 1975',
