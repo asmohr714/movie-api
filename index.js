@@ -9,8 +9,8 @@ const Models = require('./models.js');
 const Movies = Models.Movie;
 const Users = Models.User;
 
-// const Directors = Models.Director;
-// const Genres = Models.Genre;
+const Directors = Models.Director;
+const Genres = Models.Genre;
 
 
 app.use(bodyParser.json());
@@ -168,9 +168,9 @@ app.get('/movies', async (req, res) => {
 // GET movies by title name
 
 app.get('/movies/:title', async(req, res) => {
-  await Movies.findOne({title: req.params.title})
-  .then((movies) =>{
-    res.status(201).json(movies)
+  await Movies.findOne({Title: req.params.title})
+  .then((movie) =>{
+    res.status(201).json(movie)
   })
   .catch((err)=>{
     console.error(err);
@@ -194,7 +194,7 @@ app.get('/movies/id/:idNumber', async(req, res) => {
 // GET genres from movies
 
 app.get('/movies/genre/:genreName', async(req, res) => {
-  await Movies.find({genre: req.params.genreName})
+  await Movies.find({genres: req.params.genreName})
   .then((movies) => {
     res.status(201).json(movies)
   })
@@ -206,23 +206,23 @@ app.get('/movies/genre/:genreName', async(req, res) => {
 
 // GET genres
 
-// // app.get('/genre/:genreName', async(req, res) => {
-// //   await Genres.findOne({name: req.params.genreName})
-// //   .then((genre) =>{
-// //     res.status(201).json(genre)
-// //   })
-// //   .catch((err) =>{
-// //     console.log(err);
-// //     res.send(500).send('Error: ' + err)
-// //   });
-// // });
+app.get('/genre/:genreName', async(req, res) => {
+await Genres.findOne({name: req.params.genreName})
+.then((genre) =>{
+   res.status(201).json(genre)
+})
+  .catch((err) =>{
+   console.log(err);
+   res.send(500).send('Error: ' + err)
+  });
+});
 
 // GET Directors
 
 app.get('/directors/:directorName', async(req, res) => {
   await Directors.findOne({name: req.params.directorName})
-  .then((directors) =>{
-    res.status(201).json(directors)
+  .then((director) =>{
+    res.status(201).json(director)
   })
   .catch((err) =>{
     console.log(err);
