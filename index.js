@@ -3,26 +3,30 @@ morgan = require('morgan'),
 bodyParser = require('body-parser'),
 uuid = require('uuid');
 const app = express();
-
+const { error } = require('console');
 const mongoose = require('mongoose');
-const Models = require('./models.js');
+const Models = require('./models');
+
 const Movies = Models.Movie;
 const Users = Models.User;
-
 const Directors = Models.Director;
-const Genres = Models.Genre;
 
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-mongoose.connect('mongodb://localhost:27017/mfDB', { useNewUrlParser: true, useUnifiedTopology: true });
-
-
-// Log Requests
+// Middleware
 
 app.use(morgan('common'));
+app.use(bodyParser.json());
 
+let myLogger = (req, res, next) => {
+    console.log(req.url);
+    next();
+  };
+
+  app.use(myLogger);
+
+// app.use(bodyParser.urlencoded({ extended: true }));
+
+mongoose.connect('mongodb://localhost:27017/mfDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
 // User requests
 
@@ -167,18 +171,18 @@ app.get('/movies', async (req, res) => {
 
 // GET movies by title name
 
-app.get('/movies/:title', async(req, res) => {
+app.get('/movies/:title',  async (req, res) =>{
   await Movies.findOne({Title: req.params.title})
-  .then((movie) =>{
-    res.status(201).json(movie)
+  .then((movie)=>{
+      res.json(movie);
   })
-  .catch((err)=>{
-    console.error(err);
-    res.status(500).send('Error:' + err);
-  });
+  .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 
-// // GET movie by ID
+// GET movie by ID
 
 app.get('/movies/id/:idNumber', async(req, res) => {
   await Movies.findOne({_id: req.params.idNumber})
@@ -193,41 +197,46 @@ app.get('/movies/id/:idNumber', async(req, res) => {
 
 // GET genres from movies
 
-app.get('/movies/genre/:genreName', async(req, res) => {
-  await Movies.find({genres: req.params.genreName})
-  .then((movies) => {
-    res.status(201).json(movies)
+app.get('/movies/genre/:genre', async (req, res) =>{
+  await Movies.find({ Genre: req.params.genre})
+  .then((movie)=>{
+      res.json(movie);
   })
-  .catch((err)=>{
-    console.error(err);
-    res.status(500).send('Error: ' + err)
-  });
+  .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 
 // GET genres
 
-app.get('/genre/:genreName', async(req, res) => {
-await Genres.findOne({name: req.params.genreName})
-.then((genre) =>{
-   res.status(201).json(genre)
-})
-  .catch((err) =>{
-   console.log(err);
-   res.send(500).send('Error: ' + err)
-  });
-});
+// app.get('/genre/:genreName', async(req, res) => {
+// await Genres.findOne({name: req.params.genreName})
+// .then((genre) =>{
+//    res.status(201).json(genre)
+// })
+//   .catch((err) =>{
+//    console.log(err);
+//    res.send(500).send('Error: ' + err)
+//   });
+// });
 
 // GET Directors
 
-app.get('/directors/:directorName', async(req, res) => {
-  await Directors.findOne({name: req.params.directorName})
-  .then((director) =>{
-    res.status(201).json(director)
+app.get('/movies/director/:directorName', async (req, res) =>{
+  await Directors.findOne({Name: req.params.directorName})
+  .then((directors)=>{
+      if (!directors) {
+          res.status(400).send(req.params.directorName + ' was not found.');
+  }   else{
+          res.json(directors);
+      }
+      
   })
-  .catch((err) =>{
-    console.log(err);
-    res.send(500).send('Error: ' + err)
-  });
+  .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 
 // Default route
