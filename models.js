@@ -28,11 +28,11 @@ let directorSchema = mongoose.Schema({
   DeathDate: Date   
 });
 
-// let genreSchema = mongoose.Schema({
-//   _id:{ type: mongoose.Schema.Types.ObjectId, ref: 'Genre', required: true},
-//   Name:{type: String, required: true},
-//   Description:{type: String, required: true} 
-// });
+ let genreSchema = mongoose.Schema({
+   _id:{ type: mongoose.Schema.Types.ObjectId, ref: 'Genre', required: true},
+   Name:{type: String, required: true},
+   Description:{type: String, required: true} 
+ });
   
   let Movie = mongoose.model('Movie', movieSchema);
   let User = mongoose.model('User', userSchema);
