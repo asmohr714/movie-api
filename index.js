@@ -1,21 +1,25 @@
+const mongoose = require('mongoose');
+const Models = require('./models');
 const express = require('express'),
 morgan = require('morgan'),
 bodyParser = require('body-parser'),
 uuid = require('uuid');
 const app = express();
 const { error } = require('console');
-const mongoose = require('mongoose');
-const Models = require('./models');
+
 
 const Movies = Models.Movie;
 const Users = Models.User;
 const Directors = Models.Director;
+// const Genres = Models.Genre;
 
 
 // Middleware
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(morgan('common'));
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 
 let myLogger = (req, res, next) => {
     console.log(req.url);
@@ -23,8 +27,6 @@ let myLogger = (req, res, next) => {
   };
 
   app.use(myLogger);
-
-// app.use(bodyParser.urlencoded({ extended: true }));
 
 mongoose.connect('mongodb://localhost:27017/mfDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -184,23 +186,23 @@ app.get('/movies/:title',  async (req, res) =>{
 
 // GET movie by ID
 
-app.get('/movies/id/:idNumber', async(req, res) => {
-  await Movies.findOne({_id: req.params.idNumber})
-  .then((movies) => {
-    res.status(201).json(movies)
-  })
-  .catch((err)=>{
-    console.error(err);
-    res.status(500).send('Error: ' + err)
-  });
-});
+// app.get('/movies/id/:idNumber', async(req, res) => {
+//   await Movies.findOne({_id: req.params.idNumber})
+//   .then((movies) => {
+//     res.status(201).json(movies)
+//   })
+//   .catch((err)=>{
+//     console.error(err);
+//     res.status(500).send('Error: ' + err)
+//   });
+// });
 
 // GET genres from movies
 
-app.get('/movies/genre/:genre', async (req, res) =>{
-  await Movies.find({ Genre: req.params.genre})
-  .then((movie)=>{
-      res.json(movie);
+app.get('/movies/genre/:genreName', async (req, res) =>{
+  await Movies.find({ genre: req.params.genreName})
+  .then((movies)=>{
+      res.json(movies);
   })
   .catch((err) => {
       console.error(err);
@@ -210,21 +212,21 @@ app.get('/movies/genre/:genre', async (req, res) =>{
 
 // GET genres
 
-// app.get('/genre/:genreName', async(req, res) => {
-// await Genres.findOne({name: req.params.genreName})
-// .then((genre) =>{
-//    res.status(201).json(genre)
-// })
-//   .catch((err) =>{
+//  app.get('/genre/:genreName', async(req, res) => {
+//  await Genres.findOne({name: req.params.genreName})
+//    .then((genre) =>{
+//     res.status(201).json(genre)
+//  })
+//    .catch((err) =>{
 //    console.log(err);
 //    res.send(500).send('Error: ' + err)
-//   });
-// });
+//  });
+//  });
 
 // GET Directors
 
 app.get('/movies/director/:directorName', async (req, res) =>{
-  await Directors.findOne({Name: req.params.directorName})
+  await Directors.findOne({name: req.params.directorName})
   .then((directors)=>{
       if (!directors) {
           res.status(400).send(req.params.directorName + ' was not found.');
