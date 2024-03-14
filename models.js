@@ -21,10 +21,12 @@ let movieSchema = mongoose.Schema({
   });
 
 let directorSchema = mongoose.Schema({
-  Name:{type: String},
-  Bio:{type: String},
+  Name:{type: String, required: true},
+  Bio:{type: String, required: true},
   birthDate: {type: Date},
   DeathDate: {type: Date},
+}, {
+  collection: "directors"
 });
 
   // let genreSchema = mongoose.Schema({
