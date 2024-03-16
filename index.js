@@ -11,7 +11,7 @@ const { error } = require('console');
 const Movies = Models.Movie;
 const Users = Models.User;
 const Directors = Models.Director;
-// const Genres = Models.Genre;
+const Genres = Models.Genre;
 
 
 // Middleware
@@ -128,7 +128,7 @@ app.post('/users/:Username/movies/:MovieID', async (req, res) => {
 
 app.delete('/users/:Username/movies/:MovieID', async (req, res) => {
   await Users.findOneAndUpdate({ Username: req.params.Username }, {
-     $push: { FavoriteMovies: req.params.MovieID }
+     $pull: { FavoriteMovies: req.params.MovieID }
    },
    { new: true }) // This line makes sure that the updated document is returned
   .then((updatedUser) => {
@@ -143,7 +143,7 @@ app.delete('/users/:Username/movies/:MovieID', async (req, res) => {
 // Delete a user by username
 
 app.delete('/users/:Username', async (req, res) => {
-  await Users.findOneAndRemove({ Username: req.params.Username })
+  await Users.findOneAndDelete({ Username: req.params.Username })
     .then((user) => {
       if (!user) {
         res.status(400).send(req.params.Username + ' was not found');
@@ -199,34 +199,34 @@ app.get('/movies/:title',  async (req, res) =>{
 
 // GET genres from movies
 
-app.get('/movies/genre/:genreName', async (req, res) =>{
-  await Movies.find({ genre: req.params.genreName})
-  .then((movies)=>{
-      res.json(movies);
-  })
-  .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-    });
-});
+// app.get('/movies/genre/:genreName', async (req, res) =>{
+//   await Movies.find({ genre: req.params.genreName})
+//   .then((movies)=>{
+//       res.json(movies);
+//   })
+//   .catch((err) => {
+//       console.error(err);
+//       res.status(500).send('Error: ' + err);
+//     });
+// });
 
 // GET genres
 
-//  app.get('/genre/:genreName', async(req, res) => {
-//  await Genres.findOne({name: req.params.genreName})
-//    .then((genre) =>{
-//     res.status(201).json(genre)
-//  })
-//    .catch((err) =>{
-//    console.log(err);
-//    res.send(500).send('Error: ' + err)
-//  });
-//  });
+  app.get('/movies/genre/:genreName', async(req, res) => {
+  await Movies.findOne({"Genre.Name": req.params.genreName})
+    .then((genre) =>{
+     res.status(201).json(genre)
+  })
+    .catch((err) =>{
+    console.log(err);
+    res.send(500).send('Error: ' + err)
+  });
+  });
 
 // GET Directors
 
 app.get('/movies/director/:directorName', async (req, res) =>{
-  await Directors.findOne({name: req.params.directorName})
+  await Movies.findOne({"Director.Name": req.params.directorName})
   .then((directors)=>{
       if (!directors) {
           res.status(400).send(req.params.directorName + ' was not found.');
