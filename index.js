@@ -6,13 +6,25 @@ bodyParser = require('body-parser'),
 uuid = require('uuid');
 const app = express();
 const { error } = require('console');
-
-
+const { check, validationResult } = require('express-validator');
+const cors = require('cors');
 const Movies = Models.Movie;
 const Users = Models.User;
-// const Directors = Models.Director;
-// const Genres = Models.Genre;
 
+app.use(cors());
+
+let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if(!origin) return callback(null, true);
+    if(allowedOrigins.indexOf(origin) === -1){ // If a specific origin isn’t found on the list of allowed origins
+      let message = 'The CORS policy for this application doesn’t allow access from origin ' + origin;
+      return callback(new Error(message ), false);
+    }
+    return callback(null, true);
+  }
+}));
 
 // Middleware
 
@@ -42,7 +54,27 @@ mongoose.connect('mongodb://localhost:27017/mfDB', { useNewUrlParser: true, useU
 
 //Add user
 
-app.post('/users', async (req, res) => {
+app.post('/users', 
+
+// Validation for registration
+
+[
+  check('Username', 'Username is required').isLength({min: 5}),
+  check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+  check('Password', 'Password is required').not().isEmpty(),
+  check('Email', 'Email does not appear to be valid').isEmail()
+], async (req, res) => {
+
+// Send validation results
+
+  let errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+
+// Registration password hash
+
+  let hashedPassword = Users.hashPassword(req.body.Password);
   await Users.findOne({ Username: req.body.Username })
     .then((user) => {
       if (user) {
@@ -51,7 +83,7 @@ app.post('/users', async (req, res) => {
         Users
           .create({
             Username: req.body.Username,
-            Password: req.body.Password,
+            Password: hashedPassword,
             Email: req.body.Email,
             Birthday: req.body.Birthday
           })
@@ -208,32 +240,6 @@ app.get('/movies/:title', passport.authenticate('jwt', { session: false }), asyn
     });
 });
 
-// GET movie by ID
-
-// app.get('/movies/id/:idNumber', async(req, res) => {
-//   await Movies.findOne({_id: req.params.idNumber})
-//   .then((movies) => {
-//     res.status(201).json(movies)
-//   })
-//   .catch((err)=>{
-//     console.error(err);
-//     res.status(500).send('Error: ' + err)
-//   });
-// });
-
-// GET genres from movies
-
-// app.get('/movies/genre/:genreName', async (req, res) =>{
-//   await Movies.find({ genre: req.params.genreName})
-//   .then((movies)=>{
-//       res.json(movies);
-//   })
-//   .catch((err) => {
-//       console.error(err);
-//       res.status(500).send('Error: ' + err);
-//     });
-// });
-
 // GET genres
 
   app.get('/movies/genre/:genreName', passport.authenticate('jwt', { session: false }), async(req, res) => {
@@ -284,6 +290,7 @@ app.use((err, req, res, next) => {
 
  // Listen for Requests
 
- app.listen(8080, () => {
-  console.log('Your app is listening on port 8080.');
+ const port = process.env.PORT || 8080;
+ app.listen(port, '0.0.0.0',() => {
+  console.log('Listening on Port ' + port);
  });
