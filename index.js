@@ -41,12 +41,12 @@ require('./passport');
 
 // Connect to mfDB
 
-let myLogger = (req, res, next) => {
-    console.log(req.url);
-    next();
-  };
+// let myLogger = (req, res, next) => {
+//     console.log(req.url);
+//     next();
+//   };
 
-  app.use(myLogger);
+//   app.use(myLogger);
 
 mongoose.connect('mongodb://localhost:27017/mfDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
