@@ -13,7 +13,7 @@ const Users = Models.User;
 
 // app.use(cors())
 
-// let allowedOrigins = ['http://localhost:8080', 'http://testsite.com', 'https://git.heroku.com/my-cinema-selector.git'];
+let allowedOrigins = ['http://localhost:8080', 'http://testsite.com', 'https://git.heroku.com/my-cinema-selector.git'];
 
 app.use(cors({
   origin: (origin, callback) => {
@@ -156,7 +156,7 @@ app.put('/users/:Username',  passport.authenticate('jwt', { session: false }), a
 
 // Add a movie to a user's list of favorites
 
-app.post('/users/:Username/movies/:MovieID',  passport.authenticate('jwt', { session: false }), async (req, res) => {
+app.post('/users/:Username/movies/:title',  passport.authenticate('jwt', { session: false }), async (req, res) => {
         // Auth Check
         if(req.user.Username !== req.params.Username){
           return res.status(400).send('Permission denied');
@@ -176,7 +176,7 @@ app.post('/users/:Username/movies/:MovieID',  passport.authenticate('jwt', { ses
 
 // Delete favorite movie
 
-app.delete('/users/:Username/movies/:MovieID',  passport.authenticate('jwt', { session: false }), async (req, res) => {
+app.delete('/users/:Username/movies/:title',  passport.authenticate('jwt', { session: false }), async (req, res) => {
       // Auth Check
       if(req.user.Username !== req.params.Username){
         return res.status(400).send('Permission denied');
