@@ -1,0 +1,15 @@
+{} vercel.json > []routes
+    {
+        "build": [
+            {
+                "src": "index.js",
+                "use": "@now/node"
+            }
+        ],
+        "routes": [
+            {
+                "src": "/(.*)"
+                "dest": "/"
+            }
+        ]
+    }
