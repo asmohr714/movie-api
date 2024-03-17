@@ -23,6 +23,14 @@ let movieSchema = mongoose.Schema({
 
 // Hash auth credentials
 
+userSchema.statics.hashPassword = (password) => {
+  return bcrypt.hashSync(password, 10);
+};
+
+userSchema.methods.validatePassword = function(password) {
+  return bcrypt.compareSync(password, this.Password);
+};
+
 let directorSchema = mongoose.Schema({
   Name:{type: String, required: true},
   Bio:{type: String, required: true},
