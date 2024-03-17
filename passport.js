@@ -21,7 +21,7 @@ await Users.findOne({ Username: username })
   if (!user) {
     console.log('incorrect username');
     return callback(null, false, {
-      message: 'Incorrect username or password.',
+    message: 'Incorrect username or password.',
     });
   }
   if (!user.validatePassword(password)) {
@@ -34,10 +34,10 @@ await Users.findOne({ Username: username })
 })
 .catch((error) => {
   if (error) {
-    console.log(error);
-    return callback(error);
-    }
-  })
+     console.log(error);
+     return callback(error);
+     }
+   })
   }
  )
 );

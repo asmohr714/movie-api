@@ -1,0 +1,2 @@
+{"_id":{"$oid":"65d83cd42785d86c716b6f69"},"Username":"Tim","Password":"password123","Email":"tim@gmail.com","Birthday":{"$date":{"$numberLong":"-473299200000"}},"FavoriteMovies":{"$oid":"65d81afdb4a10a85ab95613f"}}
+{"_id":{"$oid":"65d83d5d2785d86c716b6f6a"},"Username":"Tom","Password":"strongpassword","Email":"tom@gmail.com","Birthday":{"$date":{"$numberLong":"-473299200000"}},"FavoriteMovies":{"$oid":"65d81959b4a10a85ab95613d"}}
