@@ -162,7 +162,7 @@ app.post('/users/:Username/movies/:title',  passport.authenticate('jwt', { sessi
           return res.status(400).send('Permission denied');
       }
   await Users.findOneAndUpdate({ Username: req.params.Username }, {
-     $push: { FavoriteMovies: req.params.MovieID }
+     $push: { FavoriteMovies: req.params.title }
    },
    { new: true }) // This line makes sure that the updated document is returned
   .then((updatedUser) => {
@@ -182,7 +182,7 @@ app.delete('/users/:Username/movies/:title',  passport.authenticate('jwt', { ses
         return res.status(400).send('Permission denied');
     }
   await Users.findOneAndUpdate({ Username: req.params.Username }, {
-     $pull: { FavoriteMovies: req.params.MovieID }
+     $pull: { FavoriteMovies: req.params.title }
    },
    { new: true }) // This line makes sure that the updated document is returned
   .then((updatedUser) => {
