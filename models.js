@@ -18,7 +18,7 @@ let movieSchema = mongoose.Schema({
     Password: {type: String, required: true},
     Email: {type: String, required: true},
     Birthday: Date,
-    FavoriteMovies: [{ type: string, req: ture }]
+    FavoriteMovies: [{ type: string, req: true }]
   });
 
 // Hash auth credentials
