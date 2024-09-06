@@ -18,7 +18,7 @@ let movieSchema = mongoose.Schema({
     Password: {type: String, required: true},
     Email: {type: String, required: true},
     Birthday: Date,
-    FavoriteMovies: [{ type: string, req: true }]
+    FavoriteMovies: [{ type: String, req: true }]
   });
 
 // Hash auth credentials
@@ -52,4 +52,3 @@ let genreSchema = mongoose.Schema({
   
   module.exports.Movie = Movie;
   module.exports.User = User;
- 
