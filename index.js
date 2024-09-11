@@ -50,11 +50,11 @@ require('./passport');
 
 // mongoose.connect('mongodb://localhost:27017/mfDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
- mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+ mongoose.connect('mongodb+srv://asmohr714:<db_password>@myflixdb.f785sra.mongodb.net/?retryWrites=true&w=majority&appName=myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
 // User requests
 
-//Add user
+//Add 'user'
 
 app.post('/users', 
 
