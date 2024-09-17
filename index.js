@@ -13,7 +13,7 @@ const Users = Models.User;
 
 // app.use(cors())
 
-let allowedOrigins = ['http://localhost:8080', 'http://testsite.com', 'https://git.heroku.com/my-cinema-selector.git'];
+let allowedOrigins = ['http://localhost:8080', 'http://localhost:1234','http://testsite.com', 'https://git.heroku.com/my-cinema-selector.git'];
 
 app.use(cors({
   origin: (origin, callback) => {
