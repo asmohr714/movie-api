@@ -13,7 +13,7 @@ const Users = Models.User;
 
 // app.use(cors())
 
-let allowedOrigins = ['http://localhost:8080', 'http://testsite.com', 'https://git.heroku.com/my-cinema-selector.git'];
+let allowedOrigins = ['http://localhost:8080', 'http://localhost:1234', 'http://testsite.com', 'https://git.heroku.com/my-cinema-selector.git'];
 
 app.use(cors({
   origin: (origin, callback) => {
@@ -218,7 +218,7 @@ app.delete('/users/:Username',  passport.authenticate('jwt', { session: false })
 
 // GET all movies
 
-app.get('/movies', passport.authenticate('jwt', { session: false }), async (req, res) => {
+app.get('/movies', async (req, res) => {
   await Movies.find()
   .then((movies)=>{
     res.status(201).json(movies);
