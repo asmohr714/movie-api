@@ -13,7 +13,7 @@ const Users = Models.User;
 
 // app.use(cors())
 
-let allowedOrigins = ['http://localhost:8080', 'http://testsite.com', 'https://git.heroku.com/my-cinema-selector.git'];
+let allowedOrigins = ['http://localhost:8080', 'http://localhost:1234', 'http://testsite.com', 'https://git.heroku.com/my-cinema-selector.git'];
 
 app.use(cors({
   origin: (origin, callback) => {
@@ -218,7 +218,7 @@ app.delete('/users/:Username',  passport.authenticate('jwt', { session: false })
 
 // GET all movies
 
-app.get('/movies', passport.authenticate('jwt', { session: false }), async (req, res) => {
+app.get('/movies', async (req, res) => {
   await Movies.find()
   .then((movies)=>{
     res.status(201).json(movies);
@@ -231,7 +231,7 @@ app.get('/movies', passport.authenticate('jwt', { session: false }), async (req,
 
 // GET movies by title name
 
-app.get('/movies/:title', passport.authenticate('jwt', { session: false }), async (req, res) =>{
+app.get('/movies/:title', async (req, res) =>{
   await Movies.findOne({Title: req.params.title})
   .then((movie)=>{
       res.json(movie);
@@ -257,7 +257,7 @@ app.get('/movies/:title', passport.authenticate('jwt', { session: false }), asyn
 
 // GET Directors
 
-app.get('/movies/director/:directorName', passport.authenticate('jwt', { session: false }), async (req, res) =>{
+app.get('/movies/director/:directorName', { session: false }), async (req, res) =>{
   await Movies.findOne({"Director.Name": req.params.directorName})
   .then((directors)=>{
       if (!directors) {
@@ -271,7 +271,7 @@ app.get('/movies/director/:directorName', passport.authenticate('jwt', { session
       console.error(err);
       res.status(500).send('Error: ' + err);
     });
-});
+}
 
 // Default route
 
