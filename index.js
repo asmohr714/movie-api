@@ -271,7 +271,7 @@ app.get('/movies/director/:directorName', { session: false }), async (req, res) 
       console.error(err);
       res.status(500).send('Error: ' + err);
     });
-});
+}
 
 // Default route
 
