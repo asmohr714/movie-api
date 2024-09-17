@@ -257,7 +257,7 @@ app.get('/movies/:title', async (req, res) =>{
 
 // GET Directors
 
-app.get('/movies/director/:directorName', passport.authenticate('jwt', { session: false }), async (req, res) =>{
+app.get('/movies/director/:directorName', { session: false }), async (req, res) =>{
   await Movies.findOne({"Director.Name": req.params.directorName})
   .then((directors)=>{
       if (!directors) {
