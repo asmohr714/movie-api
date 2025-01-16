@@ -11,7 +11,7 @@ const cors = require('cors');
 const Movies = Models.Movie;
 const Users = Models.User;
 
-app.use(cors())
+// app.use(cors())
 
 let allowedOrigins = ['http://localhost:3000','http://localhost:8080', 'http://localhost:1234', 'http://testsite.com', 'https://git.heroku.com/my-cinema-selector.git'];
 
