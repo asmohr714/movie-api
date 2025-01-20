@@ -11,7 +11,9 @@ let movieSchema = mongoose.Schema({
     Director: {
       Name: String,
       Bio: String
-  }});
+    },
+    ImagePath: {type: String, required: true}
+});
 
   let userSchema = mongoose.Schema({
     Username: {type: String, required: true},
