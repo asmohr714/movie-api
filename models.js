@@ -12,7 +12,7 @@ let movieSchema = mongoose.Schema({
       Name: String,
       Bio: String
     },
-    ImagePath: {type: String, required: true}
+    ImagePath: String
 });
 
   let userSchema = mongoose.Schema({

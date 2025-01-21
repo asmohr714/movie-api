@@ -196,7 +196,7 @@ app.delete('/users/:Username/movies/:title',  passport.authenticate('jwt', { ses
 
 // Delete a user by username
 
-app.delete('/users/:Username',  passport.authenticate('jwt', { session: false }), async (req, res) => {
+app.delete('/users/:Username', async (req, res) => {
       // Auth Check
       if(req.user.Username !== req.params.Username){
         return res.status(400).send('Permission denied');
@@ -218,7 +218,7 @@ app.delete('/users/:Username',  passport.authenticate('jwt', { session: false })
 
 // GET all movies
 
-app.get('/movies', passport.authenticate('jwt', { session: false }), async (req, res) => {
+app.get('/movies', async (req, res) => {
   await Movies.find()
   .then((movies)=>{
     res.status(201).json(movies);
@@ -231,7 +231,7 @@ app.get('/movies', passport.authenticate('jwt', { session: false }), async (req,
 
 // GET movies by title name
 
-app.get('/movies/:title', passport.authenticate('jwt', { session: false }), async (req, res) =>{
+app.get('/movies/:title', async (req, res) =>{
   await Movies.findOne({Title: req.params.title})
   .then((movie)=>{
       res.json(movie);
@@ -244,7 +244,7 @@ app.get('/movies/:title', passport.authenticate('jwt', { session: false }), asyn
 
 // GET genres
 
-  app.get('/movies/genre/:genreName', passport.authenticate('jwt', { session: false }), async(req, res) => {
+  app.get('/movies/genre/:genreName', async(req, res) => {
   await Movies.findOne({"Genre.Name": req.params.genreName})
     .then((genre) =>{
      res.status(201).json(genre)
@@ -257,7 +257,7 @@ app.get('/movies/:title', passport.authenticate('jwt', { session: false }), asyn
 
 // GET Directors
 
-app.get('/movies/director/:directorName',passport.authenticate('jwt', { session: false }), async (req, res) =>{
+app.get('/movies/director/:directorName', async (req, res) =>{
   await Movies.findOne({"Director.Name": req.params.directorName})
   .then((directors)=>{
       if (!directors) {
