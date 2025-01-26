@@ -104,7 +104,7 @@ app.post('/users',
 
 // Get all users
 
-app.get('/users', passport.authenticate('jwt', { session: false }), async (req, res) => {
+app.get('/users',  async (req, res) => {
   await Users.find()
     .then((users) => {
       res.status(201).json(users);
@@ -117,7 +117,7 @@ app.get('/users', passport.authenticate('jwt', { session: false }), async (req, 
 
 // Get a user by username
 
-app.get('/users/:Username', passport.authenticate('jwt', { session: false }), async (req, res) => {
+app.get('/users/:Username',  async (req, res) => {
   await Users.findOne({ Username: req.params.Username })
     .then((user) => {
       res.json(user);
