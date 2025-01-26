@@ -156,7 +156,7 @@ app.put('/users/:Username', async (req, res) => {
 
 // Add a movie to a user's list of favorites
 
-app.post('/users/:Username/movies/:title', passport.authenticate('jwt', { session: false }), async (req, res) => {
+app.post('/users/:Username/movies/:title', async (req, res) => {
         // Auth Check
         if(req.user.Username !== req.params.Username){
           return res.status(400).send('Permission denied');
@@ -176,7 +176,7 @@ app.post('/users/:Username/movies/:title', passport.authenticate('jwt', { sessio
 
 // Delete favorite movie
 
-app.delete('/users/:Username/movies/:title', passport.authenticate('jwt', { session: false }), async (req, res) => {
+app.delete('/users/:Username/movies/:title',  async (req, res) => {
       // Auth Check
       if(req.user.Username !== req.params.Username){
         return res.status(400).send('Permission denied');
