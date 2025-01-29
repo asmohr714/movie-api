@@ -14,6 +14,13 @@ const Users = Models.User;
 const cors = require('cors');
 let allowedOrigins = ['http://localhost:3000','http://localhost:8080', 'http://localhost:1234', 'http://testsite.com', 'https://git.heroku.com/my-cinema-selector.git'];
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3000'); // Allow requests from your React app
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE'); // Specify allowed methods
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Specify allowed headers
+  next();
+});
+
 app.use(cors({
   origin: (origin, callback) => {
     if (!origin) return callback(null, true);
