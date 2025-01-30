@@ -11,6 +11,20 @@ const cors = require('cors');
 const Movies = Models.Movie;
 const Users = Models.User;
 
+const cors = require('cors');
+let allowedOrigins = ['https://my-flix-client-seven.vercel.app', 'http://localhost:1234', 'http://localhost:3000', 'http://localhost:8080', 'https://git.heroku.com/my-cinema-selector.git', 'https://asmohr-myflix-db.netlify.app/'];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) { // If a specific origin isn’t found on the list of allowed origins
+      let message = 'The CORS policy for this application doesn’t allow access from origin ' + origin;
+      return callback(new Error(message), false);
+    }
+    return callback(null, true);
+  }
+}));
+
 app.use(cors({ origin: '*', methods: 'GET,POST,PUT,DELETE', allowedHeaders: 'Content-Type,Authorization', optionsSuccessStatus: 204 }));
 
 //const cors = require('cors');
