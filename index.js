@@ -11,7 +11,31 @@ const Movies = Models.Movie;
 const Users = Models.User;
 
 const cors = require('cors');
-let allowedOrigins = ['https://my-flix-client-seven.vercel.app', 'http://localhost:1234', 'http://localhost:3000', 'http://localhost:8080', 'https://git.heroku.com/my-cinema-selector.git', 'https://asmohr-myflix-db.netlify.app/'];
+
+const allowedOrigin = [
+	'http://localhost:3000',
+	'https://my-cinema-selector-55c96f84466e.herokuapp.com/',
+	'http://localhost:1234',
+	'https://www.my-cinema-selector-55c96f84466e.herokuapp.com/',
+	'https://my-flix-client-seven.vercel.app/',
+];
+
+app.use(
+	cors({
+		origin: (origin, callback) => {
+			if (!origin || allowedOrigin.includes(origin)) {
+				callback(null, true);
+			} else {
+				callback(new Error(`CORS policy does not allow access from origin: ${origin}`));
+			}
+		},
+		methods: ['GET', 'POST', 'PUT', 'DELETE'],
+		allowedHeaders: ['Content-Type', 'Authorization'],
+		credentials: true,
+	})
+);
+
+//let allowedOrigins = ['https://my-flix-client-seven.vercel.app', 'http://localhost:1234', 'http://localhost:3000', 'http://localhost:8080', 'https://git.heroku.com/my-cinema-selector.git', 'https://asmohr-myflix-db.netlify.app/'];
 
 //app.use(cors({
 //  origin: (origin, callback) => {
