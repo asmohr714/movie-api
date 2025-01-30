@@ -11,28 +11,28 @@ const cors = require('cors');
 const Movies = Models.Movie;
 const Users = Models.User;
 
-app.use(cors({ origin: '*', methods: 'GET,POST,PUT,DELETE', allowedHeaders: 'Content-Type,Authorization', optionsSuccessStatus: 204 }));
+//app.use(cors({ origin: '*', methods: 'GET,POST,PUT,DELETE', allowedHeaders: 'Content-Type,Authorization', optionsSuccessStatus: 204 }));
 
-//const cors = require('cors');
-//let allowedOrigins = ['http://localhost:3000','http://localhost:8080', 'http://localhost:1234', 'http://testsite.com', 'https://git.heroku.com/my-cinema-selector.git'];
+const cors = require('cors');
+let allowedOrigins = [ 'https://asmohr-myflix-db.netlify.app/','http://localhost:3000','http://localhost:8080', 'http://localhost:1234', 'http://testsite.com', 'https://git.heroku.com/my-cinema-selector.git'];
 
-//app.use((req, res, next) => {
-//  res.header('Access-Control-Allow-Origin', 'http://localhost:3000'); // Allow requests from your React app
-//  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE'); // Specify allowed methods
-//  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Specify allowed headers
-//  next();
-//});
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3000'); // Allow requests from your React app
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE'); // Specify allowed methods
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Specify allowed headers
+  next();
+});
 
-//app.use(cors({
-//  origin: (origin, callback) => {
-//    if (!origin) return callback(null, true);
-//    if (allowedOrigins.indexOf(origin) === -1) { // If a specific origin isn’t found on the list of allowed origins
-//    let message = 'The CORS policy for this application doesn’t allow access from origin ' + origin;
-//     return callback(new Error(message), false);
-//    }
-//    return callback(null, true);
-//  }
-//}));
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) { // If a specific origin isn’t found on the list of allowed origins
+    let message = 'The CORS policy for this application doesn’t allow access from origin ' + origin;
+     return callback(new Error(message), false);
+    }
+    return callback(null, true);
+  }
+}));
 
 // Middleware
 
