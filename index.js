@@ -13,9 +13,6 @@ const Users = Models.User;
 //const cors = require('cors');
 
 const cors = require('cors');
-app.use(cors({
-  origin: 'https://my-flix-client-seven.vercel.app'
-}));
 
 // CORS
 
