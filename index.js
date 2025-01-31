@@ -25,9 +25,10 @@ const allowedOrigin = [
 	'http://localhost:1234',
 	'https://www.my-cinema-selector-55c96f84466e.herokuapp.com/',
 	'https://my-flix-client-seven.vercel.app',
-  'https://my-flix-client-seven.vercel.app/login',
+  'https://my-flix-client-seven.vercel.app/',
   'https://my-flix-client-anthony-mohrs-projects.vercel.app',
-  'https://my-flix-client-git-main-anthony-mohrs-projects.vercel.app'
+  'https://my-flix-client-git-main-anthony-mohrs-projects.vercel.app',
+  'https://my-flix-client-c1rlwnkpv-anthony-mohrs-projects.vercel.app'
 ];
 
 app.use(
