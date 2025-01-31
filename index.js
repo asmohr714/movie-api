@@ -19,14 +19,14 @@ app.use(cors({
 
 // CORS
 
-//const allowedOrigin = [
-//	'http://localhost:3000',
-//	'https://my-cinema-selector-55c96f84466e.herokuapp.com/',
-//	'http://localhost:1234',
-//	'https://www.my-cinema-selector-55c96f84466e.herokuapp.com/',
-//	'https://my-flix-client-seven.vercel.app/',
-// 'https://my-flix-client-seven.vercel.app/login'
-//];
+const allowedOrigin = [
+	'http://localhost:3000',
+	'https://my-cinema-selector-55c96f84466e.herokuapp.com/',
+	'http://localhost:1234',
+	'https://www.my-cinema-selector-55c96f84466e.herokuapp.com/',
+	'https://my-flix-client-seven.vercel.app/',
+ 'https://my-flix-client-seven.vercel.app/login'
+];
 
 //app.use(
 //	cors({
