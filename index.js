@@ -14,7 +14,7 @@ const Users = Models.User;
 
 const cors = require('cors');
 app.use(cors({
-  origin: 'https://my-flix-client-seven.vercel.app/'
+  origin: 'https://my-flix-client-seven.vercel.app'
 }));
 
 // CORS
@@ -24,8 +24,10 @@ const allowedOrigin = [
 	'https://my-cinema-selector-55c96f84466e.herokuapp.com/',
 	'http://localhost:1234',
 	'https://www.my-cinema-selector-55c96f84466e.herokuapp.com/',
-	'https://my-flix-client-seven.vercel.app/',
- 'https://my-flix-client-seven.vercel.app/login'
+	'https://my-flix-client-seven.vercel.app',
+  'https://my-flix-client-seven.vercel.app/login',
+  'https://my-flix-client-anthony-mohrs-projects.vercel.app',
+  'https://my-flix-client-git-main-anthony-mohrs-projects.vercel.app'
 ];
 
 app.use(
