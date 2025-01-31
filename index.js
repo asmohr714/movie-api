@@ -10,44 +10,38 @@ const { check, validationResult } = require('express-validator');
 const Movies = Models.Movie;
 const Users = Models.User;
 
+//const cors = require('cors');
+
 const cors = require('cors');
+app.use(cors({
+  origin: 'https://my-flix-client-seven.vercel.app/'
+}));
 
-const allowedOrigin = [
-	'http://localhost:3000',
-	'https://my-cinema-selector-55c96f84466e.herokuapp.com/',
-	'http://localhost:1234',
-	'https://www.my-cinema-selector-55c96f84466e.herokuapp.com/',
-	'https://my-flix-client-seven.vercel.app/',
-  'https://my-flix-client-seven.vercel.app/login'
-];
+// CORS
 
-app.use(
-	cors({
-		origin: (origin, callback) => {
-			if (!origin || allowedOrigin.includes(origin)) {
-				callback(null, true);
-			} else {
-				callback(new Error(`CORS policy does not allow access from origin: ${origin}`));
-			}
-		},
-		methods: ['GET', 'POST', 'PUT', 'DELETE'],
-		allowedHeaders: ['Content-Type', 'Authorization'],
-		credentials: true,
-	})
-);
+//const allowedOrigin = [
+//	'http://localhost:3000',
+//	'https://my-cinema-selector-55c96f84466e.herokuapp.com/',
+//	'http://localhost:1234',
+//	'https://www.my-cinema-selector-55c96f84466e.herokuapp.com/',
+//	'https://my-flix-client-seven.vercel.app/',
+// 'https://my-flix-client-seven.vercel.app/login'
+//];
 
-//let allowedOrigins = ['https://my-flix-client-seven.vercel.app', 'http://localhost:1234', 'http://localhost:3000', 'http://localhost:8080', 'https://git.heroku.com/my-cinema-selector.git', 'https://asmohr-myflix-db.netlify.app/'];
-
-//app.use(cors({
-//  origin: (origin, callback) => {
-//    if (!origin) return callback(null, true);
-//    if (allowedOrigins.indexOf(origin) === -1) { // If a specific origin isn’t found on the list of allowed origins
-//      let message = 'The CORS policy for this application doesn’t allow access from origin ' + origin;
-//      return callback(new Error(message), false);
-//   }
-//    return callback(null, true);
- // }
-//}));
+//app.use(
+//	cors({
+//		origin: (origin, callback) => {
+//			if (!origin || allowedOrigin.includes(origin)) {
+//				callback(null, true);
+//			} else {
+//				callback(new Error(`CORS policy does not allow access from origin: ${origin}`));
+//			}
+//		},
+//		methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//		allowedHeaders: ['Content-Type', 'Authorization'],
+//		credentials: true,
+//	})
+//);
 
 // Disable CORS
 
