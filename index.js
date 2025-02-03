@@ -91,9 +91,9 @@ require('./passport');
 
 //   app.use(myLogger);
 
-// mongoose.connect('mongodb://localhost:27017/mfDB', { useNewUrlParser: true, useUnifiedTopology: true });
+// mongoose.connect("", { useNewUrlParser: true, useUnifiedTopology: true });
 
- mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+  mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 // User requests
 
@@ -200,10 +200,7 @@ app.put('/users/:Username', async (req, res) => {
 // Add a movie to a user's list of favorites
 
 app.post('/users/:Username/movies/:title', async (req, res) => {
-        // Auth Check
-        if(req.user.Username !== req.params.Username){
-          return res.status(400).send('Permission denied');
-      }
+
   await Users.findOneAndUpdate({ Username: req.params.Username }, {
      $push: { FavoriteMovies: req.params.title }
    },
