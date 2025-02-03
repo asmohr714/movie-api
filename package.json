@@ -28,5 +28,6 @@
   },
   "devDependencies": {
     "eslint": "^8.56.0"
-  }
+  },
+  "proxy": "http://my-flix-client-seven.vercel.app"
 }
