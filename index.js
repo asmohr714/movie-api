@@ -17,31 +17,31 @@ const cors = require('cors');
 // CORS
 
 const allowedOrigin = [
-	'http://localhost:3000',
-	'https://my-cinema-selector-55c96f84466e.herokuapp.com/',
-	'http://localhost:1234',
-	'https://www.my-cinema-selector-55c96f84466e.herokuapp.com/',
-	'https://my-flix-client-seven.vercel.app',
-  'https://my-flix-client-seven.vercel.app/',
+  'http://localhost:3000',
+  'https://my-cinema-selector-55c96f84466e.herokuapp.com',
+  'http://localhost:1234',
+  'https://www.my-cinema-selector-55c96f84466e.herokuapp.com',
+  'https://my-flix-client-seven.vercel.app',
   'https://my-flix-client-anthony-mohrs-projects.vercel.app',
   'https://my-flix-client-git-main-anthony-mohrs-projects.vercel.app',
   'https://my-flix-client-c1rlwnkpv-anthony-mohrs-projects.vercel.app'
 ];
 
 app.use(
-	cors({
-		origin: (origin, callback) => {
-			if (!origin || allowedOrigin.includes(origin)) {
-				callback(null, true);
-			} else {
-				callback(new Error(`CORS policy does not allow access from origin: ${origin}`));
-			}
-		},
-		methods: ['GET', 'POST', 'PUT', 'DELETE'],
-		allowedHeaders: ['Content-Type', 'Authorization', 'access-control-allow-origin'],
-		credentials: true,
-	})
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigin.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error(`CORS policy does not allow access from origin: ${origin}`));
+      }
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+  })
 );
+
 
 // Disable CORS
 
