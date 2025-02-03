@@ -26,8 +26,8 @@
     "passport-local": "^1.0.0",
     "uuid": "^9.0.1"
   },
-  "devDependencies": {
-    "eslint": "^8.56.0"
-  },
-  "proxy": "http://my-flix-client-seven.vercel.app"
-}
+
+    "devDependencies": {
+      "eslint": "^8.56.0"
+    }
+  }
