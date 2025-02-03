@@ -174,10 +174,7 @@ app.get('/users/:Username', async (req, res) => {
 // Update a user's info, by username
 
 app.put('/users/:Username', async (req, res) => {
-        // Auth Check
-        if(req.user.Username !== req.params.Username){
-          return res.status(400).send('Permission denied');
-      }
+
   await Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
     {
       Username: req.body.Username,
@@ -217,10 +214,7 @@ app.post('/users/:Username/movies/:title', async (req, res) => {
 // Delete favorite movie
 
 app.delete('/users/:Username/movies/:title', async (req, res) => {
-      // Auth Check
-      if(req.user.Username !== req.params.Username){
-        return res.status(400).send('Permission denied');
-    }
+
   await Users.findOneAndUpdate({ Username: req.params.Username }, {
      $pull: { FavoriteMovies: req.params.title }
    },
@@ -237,10 +231,7 @@ app.delete('/users/:Username/movies/:title', async (req, res) => {
 // Delete a user by username
 
 app.delete('/users/:Username', async (req, res) => {
-      // Auth Check
-      if(req.user.Username !== req.params.Username){
-        return res.status(400).send('Permission denied');
-    }
+
   await Users.findOneAndDelete({ Username: req.params.Username })
     .then((user) => {
       if (!user) {
