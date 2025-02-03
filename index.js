@@ -61,16 +61,16 @@ app.use((req, res, next) => {
 
 // app.use(cors({ origin: '*', methods: 'GET,POST,PUT,DELETE', allowedHeaders: 'Content-Type,Authorization', optionsSuccessStatus: 204 }));
 
-//app.use((req, res, next) => {
+// app.use((req, res, next) => {
 //  res.header('Access-Control-Allow-Origin', 'http://localhost:3000, https://my-flix-client-seven.vercel.app'); // Allow requests from your React app
 //  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE'); // Specify allowed methods
 //  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Specify allowed headers
 //  next();
-//});
+// });
 
 
 // Middleware
-
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('common'));
