@@ -15,12 +15,7 @@ const Users = Models.User;
 const allowedOrigin = [
   'http://localhost:3000',
   'https://my-cinema-selector-55c96f84466e.herokuapp.com',
-  'http://localhost:1234',
-  'https://www.my-cinema-selector-55c96f84466e.herokuapp.com',
   'https://my-flix-client-seven.vercel.app',
-  'https://my-flix-client-anthony-mohrs-projects.vercel.app',
-  'https://my-flix-client-git-main-anthony-mohrs-projects.vercel.app',
-  'https://my-flix-client-c1rlwnkpv-anthony-mohrs-projects.vercel.app'
 ];
 
 app.use(cors({
@@ -36,7 +31,10 @@ app.use(cors({
   credentials: true,
 }));
 
-app.options('*', cors({
+app.options('*', (req, res, next) => {
+  console.log('Received preflight request:', req.headers);
+  next();
+}, cors({
   origin: (origin, callback) => {
     if (!origin || allowedOrigin.includes(origin)) {
       callback(null, true);
@@ -46,7 +44,7 @@ app.options('*', cors({
   },
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true,
+  credentials: true
 }));
 
 app.use((req, res, next) => {
@@ -56,15 +54,6 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Credentials', 'true');
   next();
 });
-
-app.get('/api', (req, res) => {
-  res.json({ message: 'This is your API endpoint.' });
-});
-
-app.listen(3000, () => {
-  console.log('Server is running on port 3000');
-});
-
 
 
 // Disable CORS
