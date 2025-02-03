@@ -10,42 +10,57 @@ const { check, validationResult } = require('express-validator');
 const Movies = Models.Movie;
 const Users = Models.User;
 
-//const cors = require('cors');
-
-const allowedOrigin = [
-  'http://localhost:3000',
-  'https://my-cinema-selector-55c96f84466e.herokuapp.com',
-  'https://my-flix-client-seven.vercel.app',
-];
-
 app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigin.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error(`CORS policy does not allow access from origin: ${origin}`));
-    }
-  },
+  origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
 }));
 
-app.options('*', (req, res, next) => {
-  console.log('Received preflight request:', req.headers);
-  next();
-}, cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigin.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error(`CORS policy does not allow access from origin: ${origin}`));
-    }
-  },
+app.options('*', cors({
+  origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
+  credentials: true,
 }));
+
+
+//const cors = require('cors');
+
+// const allowedOrigin = [
+//   'http://localhost:3000',
+//   'https://my-cinema-selector-55c96f84466e.herokuapp.com',
+//   'https://my-flix-client-seven.vercel.app',
+// ];
+
+// app.use(cors({
+//   origin: (origin, callback) => {
+//     if (!origin || allowedOrigin.includes(origin)) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error(`CORS policy does not allow access from origin: ${origin}`));
+//     }
+//   },
+//   methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//   allowedHeaders: ['Content-Type', 'Authorization'],
+//   credentials: true,
+// }));
+
+// app.options('*', (req, res, next) => {
+//   console.log('Received preflight request:', req.headers);
+//   next();
+// }, cors({
+//   origin: (origin, callback) => {
+//     if (!origin || allowedOrigin.includes(origin)) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error(`CORS policy does not allow access from origin: ${origin}`));
+//     }
+//   },
+//   methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//   allowedHeaders: ['Content-Type', 'Authorization'],
+//   credentials: true
+// }));
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', req.headers.origin);
