@@ -12,10 +12,6 @@ const Users = Models.User;
 
 //const cors = require('cors');
 
-const cors = require('cors');
-
-// CORS
-
 const allowedOrigin = [
   'http://localhost:3000',
   'https://my-cinema-selector-55c96f84466e.herokuapp.com',
@@ -27,20 +23,48 @@ const allowedOrigin = [
   'https://my-flix-client-c1rlwnkpv-anthony-mohrs-projects.vercel.app'
 ];
 
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigin.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error(`CORS policy does not allow access from origin: ${origin}`));
-      }
-    },
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true,
-  })
-);
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigin.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error(`CORS policy does not allow access from origin: ${origin}`));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+}));
+
+app.options('*', cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigin.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error(`CORS policy does not allow access from origin: ${origin}`));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+}));
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', req.headers.origin);
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  next();
+});
+
+app.get('/api', (req, res) => {
+  res.json({ message: 'This is your API endpoint.' });
+});
+
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});
+
 
 
 // Disable CORS
